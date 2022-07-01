@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"os"
 	"path"
@@ -24,10 +23,6 @@ type App struct {
 }
 
 func main() {
-	if err := godotenv.Load(); err != nil {
-		log.Fatalf("error loading env variables: %s", err.Error())
-	}
-
 	app := &App{
 		ErrorLog: *log.New(os.Stderr, "[ERROR] ", log.Ldate|log.Ltime|log.Lshortfile),
 	}
@@ -43,10 +38,12 @@ func main() {
 
 	app.ErrorLog.SetOutput(f)
 
+	if err := godotenv.Load(path.Join(appDirectory, ".env")); err != nil {
+		app.ErrorLog.Fatal("error loading env variables: %s", err.Error())
+	}
+
 	newArticles := app.UpdateLocalXml()
 	app.SubmitNewArticles(*newArticles)
-
-	fmt.Println(newArticles)
 }
 
 func (a *App) fillVars() {

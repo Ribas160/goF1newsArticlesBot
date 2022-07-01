@@ -5,7 +5,7 @@ import (
 	"io/ioutil"
 	"net/http"
 	"os"
-	"path/filepath"
+	"path"
 )
 
 type Articles struct {
@@ -59,7 +59,7 @@ func (a *App) getXml() []byte {
 }
 
 func (a *App) writeLocalXml(f1newsXml []byte) {
-	err := os.WriteFile(filepath.Join("./", LOCAL_XML_FILE), f1newsXml, 0755)
+	err := os.WriteFile(path.Join(appDirectory, "artcles.xml"), f1newsXml, 0755)
 	if err != nil {
 		a.ErrorLog.Fatal(err)
 	}

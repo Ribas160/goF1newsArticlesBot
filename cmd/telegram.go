@@ -12,8 +12,6 @@ import (
 func (a *App) SubmitNewArticles(articles Articles) {
 	bot := a.initBot()
 
-	bot.Debug = true
-
 	for i := 0; i < len(articles.Articles); i++ {
 		channerlId, err := strconv.Atoi(os.Getenv("CHANNEL_ID"))
 		if err != nil {
