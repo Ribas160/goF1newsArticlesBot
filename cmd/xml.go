@@ -28,7 +28,7 @@ func (a *App) UpdateLocalXml() *Articles {
 		return &Articles{}
 	}
 
-	fp, err := os.Open(LOCAL_XML_FILE)
+	fp, err := os.Open(path.Join(appDirectory, LOCAL_XML_FILE))
 	if err != nil {
 		a.ErrorLog.Fatal(err)
 	}
